@@ -1,4 +1,5 @@
-# Welcome to the Fullstack Challenge! 🎉
+# Welcome to the SponsorCX Fullstack Challenge! 🎉
+![bannerlogo copy](https://github.com/user-attachments/assets/67878600-d644-46de-ab92-455a2f04688b)
 
 We're excited that you would like to be part of the team here at SponsorCX and we're excited to talk with you!  
 
@@ -9,33 +10,43 @@ The goal of the challenge is:
 - Learn about your work & working style
 - Introduce you to problems like the ones we work on at SponsorCX
 
-> *Note: If you have a personal project that you believe better showcases your work that you can share and talk about with us, you can use that instead. It should demonstrate your ability to work from the backend to the frontend.*
+*Note: If you have a personal project that you believe better showcases your work, you can use that instead. The repo should be public and demonstrate your ability to work from the backend to the frontend.*
+<br/>
+<br/>
+<br/>
 
 ## Background
 
 At SponsorCX, we help `organizations` manage the sponsorships they have with their customers (e.g. `accounts`). For this challenge, we'll focus specifically on the `Deals` that an organization has with their various `accounts`.
 
-### Organization
-An `organization` is a company that has signed up to use our platform to manage their sponsorships.
+**Organization**: An `organization` is a company that has signed up to use our platform to manage their sponsorships.
 
-### The Account
-An `Account` is a company that a company has a potential sponsorship with.
+**Account**: An `Account` is a company that a company has a potential sponsorship with.
 
-### The Deal
-A `Deal` is a contract between an `organization` and an `account`. It has a `start date`, an `end date`, a `value`and a `status`.
+**Deal**: A `Deal` is a contract between an `organization` and an `account`. It has a `start date`, an `end date`, a `value`and a `status`.
 
 Organizations can have multiple `accounts` and `accounts` can have multiple `deals`. 
+<br/>
+<br/>
+<br/>
 
 ## The Challenges - 3.5 hours
-SponsorCX organizations need a way to view all of their `deals` and how much they are worth. We have broken this into two challenges.
+SponsorCX organizations need a way to view all of their `deals` and how much they are worth. We have broken this into two challenges. Refer to [Getting Started](#getting-started) for instructions on how to run the application.
 
-### Challenge 1
-Add a page to the application that displays the `deals` and their total value. Build the api and react components to display the data. 
+#### Challenge 1
+- Create the models and endpoints to get all of the `deals` for an organization. The `organization` model is created for you, but you'll need to create the account and deal models.
 
-### Challenge 2
-Organizations need to be able to filter the `deals` by `status` and `year`. Add this functionality to the api and frontend.
+#### Challenge 2
+- Add a page to the react application that displays the `deals` and their total value. Pull the deals data from the api you created in challenge 1.
 
-[Graphic for Deals Page](https://google.com)
+#### Challenge 3
+- Organizations need to be able to filter the `deals` by `status` and `year`. Add this functionality to the api and frontend.
+
+![Screenshot 2024-12-31 at 3 15 40 PM](https://github.com/user-attachments/assets/35bcb5c3-f94a-4a13-9502-8a59d86dc13d)
+
+<br/>
+<br/>
+<br/>
 
 ## Discussion - 30 minutes
 Take some time to document your thought process and the choices you made in a `discussion.md` file. Include information like: 
