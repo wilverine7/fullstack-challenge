@@ -57,8 +57,9 @@ Take some time to document your thought process and the choices you made in a `d
 - Any questions you have for us? 
 
 ## Getting Started
-- Clone the repository
-- install instructions...
+Look at the README in the frontend and backend folders for instructions on how to run the application.
+[Frontend](frontend/README.md)
+[Backend](server/README.md)
 
 ## Rules
 - Spend no more than 4 hours working on the challenge
