@@ -1,6 +1,6 @@
 # Welcome to the Fullstack Challenge! 🎉
 
-We're excited that you would like to be part of the team here at SponsorCX and we're excited to talk with you about what you create here!  
+We're excited that you would like to be part of the team here at SponsorCX and we're excited to talk with you!  
 
 ## Introduction
 Below, you'll find a repository with a simple React and Node.js application. The project is left open-ended for you to provide your unique solution to the problem. Please spend no more than 4 hours working on the challenge. 
