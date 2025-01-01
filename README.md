@@ -21,7 +21,7 @@ At SponsorCX, we help `organizations` manage the sponsorships they have with the
 
 **Organization**: An `organization` is a company that has signed up to use our platform to manage their sponsorships.
 
-**Account**: An `Account` is a company that a company has a potential sponsorship with.
+**Account**: An `Account` is a company that an organization has a potential sponsorship with.
 
 **Deal**: A `Deal` is a contract between an `organization` and an `account`. It has a `start date`, an `end date`, a `value`and a `status`.
 
