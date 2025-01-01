@@ -57,6 +57,10 @@ Take some time to document your thought process and the choices you made in a `d
 - Any questions you have for us? 
 
 ## Getting Started
+```bash
+git clone https://github.com/sponsorcx/fullstack-challenge.git
+cd fullstack-challenge
+```
 Look at the README in the frontend and backend folders for instructions on how to run the application.  
 <br/>
 **[Frontend README](frontend/README.md)**  
