@@ -1,5 +1,5 @@
 # Welcome to the SponsorCX Fullstack Challenge! 🎉
-![bannerlogo copy](https://github.com/user-attachments/assets/67878600-d644-46de-ab92-455a2f04688b)
+![SponsorCX Logo](https://github.com/user-attachments/assets/67878600-d644-46de-ab92-455a2f04688b)
 
 We're excited that you would like to be part of the team here at SponsorCX and we're excited to talk with you!  
 
@@ -57,9 +57,11 @@ Take some time to document your thought process and the choices you made in a `d
 - Any questions you have for us? 
 
 ## Getting Started
-Look at the README in the frontend and backend folders for instructions on how to run the application.
-[Frontend](frontend/README.md)
-[Backend](server/README.md)
+Look at the README in the frontend and backend folders for instructions on how to run the application.  
+<br/>
+**[Frontend README](frontend/README.md)**  
+<br/>
+**[Backend README](server/README.md)**
 
 ## Rules
 - Spend no more than 4 hours working on the challenge
