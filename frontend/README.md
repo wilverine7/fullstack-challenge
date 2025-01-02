@@ -7,9 +7,3 @@ This is a basic vite + react + typescript project. Customize it to your needs. G
 npm i
 npm run dev
 ```
-
-## Rules
-- Spend no more than 4 hours working on the challenge
-- Make use of any libraries and tools that you like 
-- Feel free to use help from LLMs but be prepared to explain your code and the choices you made
-- Commit as you go. We want to see your thought process
