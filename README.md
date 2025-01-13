@@ -50,7 +50,7 @@ SponsorCX organizations need a way to view all of their `deals` and how much the
 <br/>
 
 ## Documentation - 30 minutes
-Take some time to document your thought process and the choices you made in a `documentation.md` file or inline as you go. Include information like:
+Take some time to document your thought process and the choices you made in a `documentation.md` file or inline as you go. Please write this piece yourself. Include information like:
 - Any instructions for us to run your code and understand your solution.
 - What decisions did you end up making?
 - What assumptions did you make?
@@ -68,8 +68,9 @@ Fork this repo, then look at the README in the frontend and backend folders for 
 - Spend no more than 4 hours working on the challenge
 - Make use of any libraries and tools that you like
 - Feel free to use help from LLMs but be prepared to explain your code and the choices you made
+- Use the `documentation.md` file to document your thought process. Please write this piece yourself.
 - Commit as you go. We want to see your thought process
 
 ## Submission
-Zip your code and send it to creed@sponsorcx.com
+Zip your code and send it to creed@sponsorcx.com. To share your database, either create a seed script or attach the sqlite database file with your submission.
 
