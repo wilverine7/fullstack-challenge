@@ -16,7 +16,14 @@ import {
   TableRow,
   Typography,
   Paper,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import ClearIcon from "@mui/icons-material/Clear";
 
 type Deal = {
   id: number;
@@ -34,6 +41,14 @@ export default function DealsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState({ status: "", year: "" });
+  const [tempFilters, setTempFilters] = useState({ status: "", year: "" });
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setTempFilters(filters);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,12 +80,21 @@ export default function DealsPage() {
     fetchData();
   }, [filters]);
 
-  const handleFilterChange = (e: SelectChangeEvent<string>) => {
+  const handleTempFilterChange = (e: SelectChangeEvent<string>) => {
     const { name, value } = e.target;
-    setFilters((prev) => ({
+    setTempFilters((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleApplyFilters = () => {
+    setFilters(tempFilters);
+    handleClose();
+  };
+
+  const handleClearFilters = () => {
+    setFilters({ status: "", year: "" });
   };
 
   const years = Array.from({ length: 11 }, (_, i) => 2015 + i);
@@ -90,46 +114,87 @@ export default function DealsPage() {
 
   return (
     <Box sx={{ p: 6 }}>
-      <Typography variant="h4" sx={{ mb: 4 }}>
-        Deals
+      <Typography variant="h3" sx={{ mb: 2 }}>
+        Organization 1
       </Typography>
 
       {/* Filter Controls */}
-      <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
-        <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel id="status-filter">Status</InputLabel>
-          <Select
-            labelId="status-filter"
-            name="status"
-            value={filters.status}
-            label="Status"
-            onChange={handleFilterChange}
-          >
-            <MenuItem value="">All Statuses</MenuItem>
-            <MenuItem value="open">Open</MenuItem>
-            <MenuItem value="closed">Closed</MenuItem>
-            <MenuItem value="pending">Pending</MenuItem>
-          </Select>
-        </FormControl>
+      <Box sx={{ mb: 4, display: "flex", gap: 2 }}>
+        {/* Filters Button */}
+        <Button
+          variant="outlined"
+          startIcon={<FilterListIcon />}
+          onClick={handleOpen}
+        >
+          Filters
+        </Button>
 
-        <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel id="year-filter">Year</InputLabel>
-          <Select
-            labelId="year-filter"
-            name="year"
-            value={filters.year}
-            label="Year"
-            onChange={handleFilterChange}
-          >
-            <MenuItem value="">All Years</MenuItem>
-            {years.map((year) => (
-              <MenuItem key={year} value={year.toString()}>
-                {year}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        {/* Clear Filters Button */}
+        <Button
+          variant="outlined"
+          startIcon={<ClearIcon />}
+          onClick={handleClearFilters}
+          disabled={!filters.status && !filters.year}
+        >
+          Clear Filters
+        </Button>
       </Box>
+
+      {/* Filters Dialog */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Filters</DialogTitle>
+        <DialogContent>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 3,
+              p: 2,
+              minWidth: 300,
+            }}
+          >
+            <FormControl fullWidth>
+              <InputLabel id="status-filter">Status</InputLabel>
+              <Select
+                labelId="status-filter"
+                name="status"
+                value={tempFilters.status}
+                label="Status"
+                onChange={handleTempFilterChange}
+              >
+                <MenuItem value="">All Statuses</MenuItem>
+                <MenuItem value="open">Open</MenuItem>
+                <MenuItem value="closed">Closed</MenuItem>
+                <MenuItem value="pending">Pending</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="year-filter">Year</InputLabel>
+              <Select
+                labelId="year-filter"
+                name="year"
+                value={tempFilters.year}
+                label="Year"
+                onChange={handleTempFilterChange}
+              >
+                <MenuItem value="">All Years</MenuItem>
+                {years.map((year) => (
+                  <MenuItem key={year} value={year.toString()}>
+                    {year}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleApplyFilters} variant="contained">
+            Apply
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Typography variant="body1" sx={{ mb: 4, fontWeight: "bold" }}>
         Total Value: ${totalValue.toLocaleString("en-US")}
