@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   Box,
   CircularProgress,
@@ -21,6 +21,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  TableSortLabel,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -35,6 +36,8 @@ type Deal = {
   account_name: string;
 };
 
+type Order = "asc" | "desc";
+
 export default function DealsPage() {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [totalValue, setTotalValue] = useState(0);
@@ -43,6 +46,33 @@ export default function DealsPage() {
   const [filters, setFilters] = useState({ status: "", year: "" });
   const [tempFilters, setTempFilters] = useState({ status: "", year: "" });
   const [open, setOpen] = useState(false);
+  const [orderBy, setOrderBy] = useState<keyof Deal>("account_name");
+  const [order, setOrder] = useState<Order>("asc");
+
+  // Client-side sorting implementation
+  const sortedDeals = useMemo(() => {
+    return [...deals].sort((a, b) => {
+      // Handle numeric sorting
+      if (orderBy === "value") {
+        return order === "asc" ? a.value - b.value : b.value - a.value;
+      }
+
+      // Handle date sorting
+      if (orderBy === "start_date" || orderBy === "end_date") {
+        const dateA = new Date(a[orderBy]).getTime();
+        const dateB = new Date(b[orderBy]).getTime();
+        return order === "asc" ? dateA - dateB : dateB - dateA;
+      }
+
+      // Handle string sorting
+      const valueA = String(a[orderBy]).toLowerCase();
+      const valueB = String(b[orderBy]).toLowerCase();
+
+      if (valueA < valueB) return order === "asc" ? -1 : 1;
+      if (valueA > valueB) return order === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [deals, orderBy, order]);
 
   const handleOpen = () => {
     setTempFilters(filters);
@@ -58,6 +88,8 @@ export default function DealsPage() {
         const query = new URLSearchParams({
           ...filters,
           orgId: "1",
+          sortBy: orderBy,
+          sortOrder: order,
         }).toString();
         const response = await fetch(
           `http://localhost:3000/api/deals?${query}`
@@ -78,7 +110,7 @@ export default function DealsPage() {
     };
 
     fetchData();
-  }, [filters]);
+  }, [filters, orderBy, order]);
 
   const handleTempFilterChange = (e: SelectChangeEvent<string>) => {
     const { name, value } = e.target;
@@ -95,6 +127,12 @@ export default function DealsPage() {
 
   const handleClearFilters = () => {
     setFilters({ status: "", year: "" });
+  };
+
+  const handleSort = (property: keyof Deal) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
   };
 
   const years = Array.from({ length: 11 }, (_, i) => 2015 + i);
@@ -120,7 +158,6 @@ export default function DealsPage() {
 
       {/* Filter Controls */}
       <Box sx={{ mb: 4, display: "flex", gap: 2 }}>
-        {/* Filters Button */}
         <Button
           variant="outlined"
           startIcon={<FilterListIcon />}
@@ -129,7 +166,6 @@ export default function DealsPage() {
           Filters
         </Button>
 
-        {/* Clear Filters Button */}
         <Button
           variant="outlined"
           startIcon={<ClearIcon />}
@@ -209,15 +245,61 @@ export default function DealsPage() {
           <Table>
             <TableHead sx={{ backgroundColor: "grey.100" }}>
               <TableRow>
-                <TableCell>Account</TableCell>
-                <TableCell>Start</TableCell>
-                <TableCell>End</TableCell>
-                <TableCell>Value</TableCell>
-                <TableCell>Status</TableCell>
+                <TableCell
+                  sortDirection={orderBy === "account_name" ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === "account_name"}
+                    direction={orderBy === "account_name" ? order : "asc"}
+                    onClick={() => handleSort("account_name")}
+                  >
+                    Account
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell
+                  sortDirection={orderBy === "start_date" ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === "start_date"}
+                    direction={orderBy === "start_date" ? order : "asc"}
+                    onClick={() => handleSort("start_date")}
+                  >
+                    Start
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell
+                  sortDirection={orderBy === "end_date" ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === "end_date"}
+                    direction={orderBy === "end_date" ? order : "asc"}
+                    onClick={() => handleSort("end_date")}
+                  >
+                    End
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell sortDirection={orderBy === "value" ? order : false}>
+                  <TableSortLabel
+                    active={orderBy === "value"}
+                    direction={orderBy === "value" ? order : "asc"}
+                    onClick={() => handleSort("value")}
+                  >
+                    Value
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell sortDirection={orderBy === "status" ? order : false}>
+                  <TableSortLabel
+                    active={orderBy === "status"}
+                    direction={orderBy === "status" ? order : "asc"}
+                    onClick={() => handleSort("status")}
+                  >
+                    Status
+                  </TableSortLabel>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {deals.map((deal) => (
+              {sortedDeals.map((deal) => (
                 <TableRow key={deal.id}>
                   <TableCell>{deal.account_name}</TableCell>
                   <TableCell>
