@@ -42,7 +42,8 @@ if (orgsCount === 0) {
       const numDeals = Math.floor(Math.random() * 3) + 1; // 1–3 deals
       for (let k = 1; k <= numDeals; k++) {
         const value = (k + 1) * 1000;
-        const status = k % 2 === 0 ? "closed" : "open";
+        const statuses = ["open", "closed", "pending"];
+        const status = statuses[Math.floor(Math.random() * statuses.length)];
         const startDate = `2025-04-${(k * 3).toString().padStart(2, "0")}`;
         const endDate = `2025-04-${(k * 3 + 2).toString().padStart(2, "0")}`;
 
