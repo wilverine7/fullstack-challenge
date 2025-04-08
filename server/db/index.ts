@@ -32,7 +32,7 @@ if (orgsCount === 0) {
     const orgName = `Org ${i}`;
     const orgId = Number(orgInsert.run(orgName).lastInsertRowid);
 
-    const numAccounts = Math.floor(Math.random() * 3) + 1; // 1–3 accounts
+    const numAccounts = Math.floor(Math.random() * 5) + 1; // 1–3 accounts
     for (let j = 1; j <= numAccounts; j++) {
       const accountName = `Account ${i}.${j}`;
       const accountId = Number(
@@ -44,8 +44,9 @@ if (orgsCount === 0) {
         const value = (k + 1) * 1000;
         const statuses = ["open", "closed", "pending"];
         const status = statuses[Math.floor(Math.random() * statuses.length)];
-        const startDate = `2025-04-${(k * 3).toString().padStart(2, "0")}`;
-        const endDate = `2025-04-${(k * 3 + 2).toString().padStart(2, "0")}`;
+        const year = 2022 + (k % 4);
+        const startDate = `${year}-04-${(k * 3).toString().padStart(2, "0")}`;
+        const endDate = `${year}-04-${(k * 3 + 2).toString().padStart(2, "0")}`;
 
         dealInsert.run(accountId, startDate, endDate, value, status);
       }
