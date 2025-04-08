@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
-import db from "./db";
+import getOrganizations from "./controllers/getOrganizations";
+import getDeals from "./controllers/getDeals";
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -16,10 +18,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  const rows = db.prepare("SELECT * FROM organizations").all();
-  res.json(rows);
-});
+app.use(getOrganizations);
+app.use(getDeals);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
