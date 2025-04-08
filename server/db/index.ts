@@ -28,13 +28,27 @@ const orgsCount =
     }
   )?.count ?? 0;
 if (orgsCount === 0) {
-  const info = orgInsert.run("Org A");
-  const orgId = info.lastInsertRowid as number;
+  for (let i = 1; i <= 3; i++) {
+    const orgName = `Org ${i}`;
+    const orgId = Number(orgInsert.run(orgName).lastInsertRowid);
 
-  const accountInfo = accountInsert.run(orgId, "Account 1");
-  const accountId = accountInfo.lastInsertRowid as number;
+    const numAccounts = Math.floor(Math.random() * 3) + 1; // 1–3 accounts
+    for (let j = 1; j <= numAccounts; j++) {
+      const accountName = `Account ${i}.${j}`;
+      const accountId = Number(
+        accountInsert.run(orgId, accountName).lastInsertRowid
+      );
 
-  dealInsert.run(accountId, "2025-04-01", "2025-04-30", 1000, "open");
-  dealInsert.run(accountId, "2025-05-01", "2025-06-01", 2500, "closed");
+      const numDeals = Math.floor(Math.random() * 3) + 1; // 1–3 deals
+      for (let k = 1; k <= numDeals; k++) {
+        const value = (k + 1) * 1000;
+        const status = k % 2 === 0 ? "closed" : "open";
+        const startDate = `2025-04-${(k * 3).toString().padStart(2, "0")}`;
+        const endDate = `2025-04-${(k * 3 + 2).toString().padStart(2, "0")}`;
+
+        dealInsert.run(accountId, startDate, endDate, value, status);
+      }
+    }
+  }
 }
 export default db;

@@ -7,8 +7,6 @@ export type Deal = {
   end_date: string;
   value: number;
   status: string;
-  created_at: string;
-  updated_at: string;
 };
 
 export function getDealsByOrganizationId(orgId: number): Deal[] {
