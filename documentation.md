@@ -23,4 +23,4 @@ I assumed 3 status: open, pending, closed based on this assumption I only show o
 The screenshot made it a bit confusing as far as the values for status of deals and the organzation of the return if there are particlar values you would like this would be nice to know.
 If there are certain values it would probably change the way the page would be created.
 
-Thank!
+Thanks!
